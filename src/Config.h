@@ -22,6 +22,7 @@ public: // Switches
     bool        m_relaxPDB = false;
     bool        m_saveOptimumPDB = false;
     bool        m_pullIsCentral = true;
+    bool        m_doProximity = true;
 public: // Key - vaules
     std::vector<std::string>    m_pdbTargets        = {};
     std::vector<std::string>    m_npTargets         = {};

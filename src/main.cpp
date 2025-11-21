@@ -63,7 +63,7 @@ std::normal_distribution<double> unitNormalDist (0.0, 1.0);
 std::string
 getUAVersion ()
 {
-  static std::string uaVersionID ("1.6.1");
+  static std::string uaVersionID ("1.6.2");
   return uaVersionID;
 }
 
@@ -133,7 +133,7 @@ PrecalcName (const double *adsorption_energy, const double *adsorption_error, co
 // surf-surf separation is minlocval -  protein_offset[i]
 // and protein surf - np centre is minlocval + radius - protein_offset[i]
 void
-WriteMapFile (const double *adsorption_energy, const double *adsorption_error, const double *mfpt_val, const double *minloc_val, const double *numcontacts_val, const double *protein_offset, const double *protein_area, const double radius,
+WriteMapFile (const Config &config , const double *adsorption_energy, const double *adsorption_error, const double *mfpt_val, const double *minloc_val, const double *numcontacts_val, const double *protein_offset, const double *protein_area, const double radius,
               const double zeta, const std::string &name, const std::string &directory, const std::string &npName, double temperature = 300.0, int isMFPT = 0, int appendAngle = 0, double omegaAngle = 0, const std::string &contactMapString="")
 {
   std::string filename;
@@ -201,8 +201,13 @@ WriteMapFile (const double *adsorption_energy, const double *adsorption_error, c
 
       handle << "\n";
     }
-  handle <<"#CONTACTS: " << contactMapString << "\n";
 
+  if( config.m_doProximity == true){
+  handle <<"#PROXIMITY: " << contactMapString << "\n";
+  }
+  else{
+  handle <<"#CONTACTS: " << contactMapString << "\n";
+  }
   handle.close ();
 }
 
@@ -2223,9 +2228,11 @@ getContactMap (double phi, double theta, const int size, const Config &config, c
 
   char contactMap[size+1]; 
    int numNPs = 1;
+  char proxChar[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
   if(config.m_sumNPPotentials == false){
    numNPs = np.m_x.size ();
   }
+     bool doProximity = config.m_doProximity;
 
   for( int i = 0; i< size; ++ i){
      double distance = 0;
@@ -2240,9 +2247,19 @@ getContactMap (double phi, double theta, const int size, const Config &config, c
           {
         distance = getDistance3D (x[i], y[i], z[i] , 0, 0, 0, radius, npType);
       }
-     if(distance < 0.5){
-         contactMap[i] = '1';
+
+     //bool doProximity = false;
+     if(doProximity == true){
+       int proxInt = std::max(0, 9 - (int)std::floor( distance * 5 ) ) ; 
+       contactMap[i] = proxChar[proxInt] ;
      }
+     else{
+       if(distance < 0.5){
+           contactMap[i] = '1';
+       }
+     }
+  
+
   }
   contactMap[size] = '\0';
   std::string contactMapStr( contactMap  );
@@ -3036,7 +3053,7 @@ AdsorptionEnergies (const PDB &pdb, const NP &np, const Config &config, const Po
                       energy += -log (flexEnergyNumerator / flexEnergyDenom);
                     }
 
-                  numContactsAtStep += resHasContacted;
+                  numContactsAtStep += resHasContacted * pdb.m_occupancy[j];
 
                 } // loop over the residue index j ends here
 
@@ -3187,8 +3204,9 @@ SurfaceScan (const PDB &pdb, const Potentials &potentials, const double zeta, co
 
      bool updateContactMapFile = true;
      bool fileHasContacts = false;
+    bool fileHasProximity = false;
      if(updateContactMapFile == true){
-      std::cout << "Updating contact map file" << "\n";
+      //std::cout << "Checking if proximity updated map file" << "\n";
       std::string line;
       std::string precalcFileName = PrecalcName (adsorption_energy, adsorption_error, mfpt_val, minloc_val, radius, zeta, pdb.m_name, config.m_outputDirectory, np.m_name, 0, appendAngle, omegaAngle);
       double phiMin = 0.0;
@@ -3201,6 +3219,11 @@ SurfaceScan (const PDB &pdb, const Potentials &potentials, const double zeta, co
             if( line.substr(0,9) == "#CONTACTS" ){
                fileHasContacts = true;
             }
+            if(  line.substr(0,10) == "#PROXIMITY"){
+               fileHasProximity = true;
+            }
+
+
             if(  line.substr(0, 1) != "#"){
               //lineTerms = line.split() ;
               double trialEnergy = std::stod( line.substr( 14,14 ) );
@@ -3218,17 +3241,38 @@ SurfaceScan (const PDB &pdb, const Potentials &potentials, const double zeta, co
       
       thetaMin = (thetaMin) * M_PI/180.0;
       phiMin = (phiMin) * M_PI/180.0;
+      //std::cout <<"Contact map: " << contactMapString << "\n";
 
-      std::string contactMapString = getContactMap(phiMin, thetaMin, pdb.m_id.size (), config, potentials, pdb, np, radius, config.m_npType, omegaAngle * M_PI / 180.0, pdb.m_name, config.m_outputDirectory, np.m_name, ccdAtMin);
-      std::cout <<"Contact map: " << contactMapString << "\n";
+      bool updateContacts = false;
+      if(config.m_doProximity == true && fileHasProximity == false){
+          updateContacts = true;
+      }
+      if(config.m_doProximity == false && fileHasContacts == false){
+          updateContacts = true;
+      }
 
-      if(fileHasContacts == true){
-          std::cout << "Contact map already exists in file\n";
+      if(updateContacts == false){
+            if( config.m_doProximity == true){
+            std::cout << "Proximity map already exists in file\n";
+            } 
+            else{
+            std::cout << "Contact map already exists in file\n";
+            }
+
       }
       else{
-         std::cout <<"Writing contact map to file \n";
+
+
+      std::string contactMapString = getContactMap(phiMin, thetaMin, pdb.m_id.size (), config, potentials, pdb, np, radius, config.m_npType, omegaAngle * M_PI / 180.0, pdb.m_name, config.m_outputDirectory, np.m_name, ccdAtMin);
+        std::cout <<"Computed map: " << contactMapString <<"\n";
+         std::cout <<"Writing contact/proximity map to file \n";
           std::ofstream handle(precalcFileName.c_str() , ios::app) ;
+          if(config.m_doProximity == true){
+          handle <<"#PROXIMITY: " << contactMapString << "\n";
+           }
+          else{
           handle <<"#CONTACTS: " << contactMapString << "\n";
+          }
           handle.close() ;
 
       }
@@ -3302,7 +3346,7 @@ SurfaceScan (const PDB &pdb, const Potentials &potentials, const double zeta, co
         }
       std::string contactMapString = getContactMap(phiMin, thetaMin, pdb.m_id.size (), config, potentials, pdb, np, radius, config.m_npType, omegaAngle * M_PI / 180.0, pdb.m_name, config.m_outputDirectory, np.m_name, ccdAtMin);
 
-      WriteMapFile (adsorption_energy, adsorption_error, mfpt_val, minloc_val, numcontacts_val, protein_offset_val, protein_area_val, radius, zeta, pdb.m_name, config.m_outputDirectory, np.m_name, config.m_temperature, 0, appendAngle, omegaAngle, contactMapString);
+      WriteMapFile (config, adsorption_energy, adsorption_error, mfpt_val, minloc_val, numcontacts_val, protein_offset_val, protein_area_val, radius, zeta, pdb.m_name, config.m_outputDirectory, np.m_name, config.m_temperature, 0, appendAngle, omegaAngle, contactMapString);
       // WriteMapFile(mfpt_val, mfpt_err, radius, zeta, pdb.m_name, config.m_outputDirectory,1,isCylinder,cylinderAngle);
       PrintStatistics (adsorption_energy, adsorption_error, radius, pdb.m_name);
     }
