@@ -2247,10 +2247,11 @@ getContactMap (double phi, double theta, const int size, const Config &config, c
           {
         distance = getDistance3D (x[i], y[i], z[i] , 0, 0, 0, radius, npType);
       }
-
+     //apply clipping for safety
+     distance = std::max( distance, 0.01 ); 
      //bool doProximity = false;
      if(doProximity == true){
-       int proxInt = std::max(0, 9 - (int)std::floor( distance * 5 ) ) ; 
+       int proxInt = std::min( std::max(0, 9 - (int)std::floor( distance * 5 ) ) , 9 ); 
        contactMap[i] = proxChar[proxInt] ;
      }
      else{
