@@ -63,7 +63,7 @@ std::normal_distribution<double> unitNormalDist (0.0, 1.0);
 std::string
 getUAVersion ()
 {
-  static std::string uaVersionID ("1.6.2");
+  static std::string uaVersionID ("1.6.3");
   return uaVersionID;
 }
 
@@ -643,6 +643,46 @@ GetEnergy (double *x, double *y, double *z, int j, double dr, bool sumNPs, int n
     }
   return totalEnergy;
 }
+
+/*
+double
+GetEnergyFlex (double dz, const Config &config, double *x, double *y, double *z, int j, double dr, bool sumNPs, int numNPs, int size, const PDB &pdb, const NP &np, const Potentials &potentials, double radius, int npType)
+{
+
+  flexMethod = config.m_flexMethod;
+  double totalEnergy = 0;
+  int numSDs = config.m_flexNumSDev;
+  double flexScanRes = config.m_flexResolution;
+
+  for (int i = 0; i < size; ++i)
+    {
+      double rmsd = pdb.m_rmsd[i];
+      double sigmaSq = rmsd*rmsd;
+      int numPoints = ceil (numSDs * rmsd / flexScanRes);
+      numPoints = std::max (1, numPoints);
+    
+      for (int k = 0; k < numNPs; ++k)
+        {
+          if (sumNPs == false)
+            {
+              double dist = getDistance3D (x[i], y[i], z[i]+dz, np.m_x[k], np.m_y[k], np.m_z[k], np.m_radius[np.m_npBeadType[k]], np.m_shape[np.m_npBeadType[k]]);
+              totalEnergy += (static_cast<double> (potentials[pdb.m_id[i]].Value (dist, np.m_npBeadType[k])));
+            }
+          else
+            {
+              double dist = getDistance3D (x[i], y[i], z[i]+dz, 0, 0, 0, radius, npType);
+              totalEnergy += (static_cast<double> (potentials[pdb.m_id[i]].Value (dist, np.m_npBeadType[k])));
+            }
+        }
+    }
+  return totalEnergy;
+}
+
+
+
+*/
+
+
 
 // get the internal energy for the biomolecule
 double
@@ -2191,6 +2231,9 @@ SaveSpecificOrientation (double phi, double theta, const int size, const Config 
 
 
 
+
+
+
 std::string
 getContactMap (double phi, double theta, const int size, const Config &config, const Potentials &potentials, const PDB &pdb, const NP &np, double radius, int npType, double cylinderAngle, const std::string &pdbname,
                          const std::string &outputdirectory, const std::string &npName, double ccdAtMin)
@@ -2202,7 +2245,37 @@ getContactMap (double phi, double theta, const int size, const Config &config, c
   double phi_adjusted = -1.0 * (phi + angle_delta / 2);
   double theta_adjusted = M_PI - (theta + angle_delta / 2);
 
+  int numAttempts = 8;
+  double mostContacts = 0;
+  double xBest[size];
+  double yBest[size];
+  double zBest[size];
+   int numNPs = 1;
+
+  if(config.m_sumNPPotentials == false){
+   numNPs = np.m_x.size ();
+  }
+
+   int closeContacts = 0;
+  for(int a = 0; a<numAttempts; ++a){
+    closeContacts = 0;
+   if(numAttempts > 1){
+
+  //random_angle_offset (randomEngine) returns 0 to 1, so subtracting 0.5 gives -0.5 to 0.5
+  //double phiOffset = phi_adjusted + angle_delta*random_angle_offset(randomEngine);
+  //double thetaOffset = theta_adjusted + angle_delta* (random_angle_offset(randomEngine)-0.5  );
+
+  double phiOffset = -1.0 * (phi + angle_delta * random_angle_offset (randomEngine));
+  double thetaOffset  = M_PI - (theta + angle_delta * random_angle_offset (randomEngine));
+
+
+  Rotate3 (size, phiOffset, thetaOffset, cylinderAngle, pdb.m_x, pdb.m_y, pdb.m_z, x, y, z);
+
+  }
+  else{
   Rotate3 (size, phi_adjusted, theta_adjusted, cylinderAngle, pdb.m_x, pdb.m_y, pdb.m_z, x, y, z);
+  }
+
 
   if (config.m_relaxPDB == true)
     {
@@ -2225,13 +2298,49 @@ getContactMap (double phi, double theta, const int size, const Config &config, c
         }
     }
 
+   for(int i =0; i<size; ++i){
+    double distance = 0;
+
+
+     if (config.m_sumNPPotentials == false)
+          {
+           for(int k =0; k< numNPs; ++k){
+               distance = std::min(distance, getDistance3D (x[i], y[i], z[i] , np.m_x[k], np.m_y[k], np.m_z[k], np.m_radius[np.m_npBeadType[k]], np.m_shape[np.m_npBeadType[k]]));
+           }
+         }
+        else
+          {
+        distance = getDistance3D (x[i], y[i], z[i] , 0, 0, 0, radius, npType);
+      }
+
+
+    if(distance < 0.5){
+        closeContacts += 1;
+    }
+   }
+
+   //std::cout << " pass: " << a << " found " << closeContacts << "\n";
+   if( closeContacts > mostContacts){
+    mostContacts = closeContacts;
+    for(int i=0; i<size;++i){
+     xBest[i] = x[i];
+     yBest[i] = y[i];
+     zBest[i] = z[i];
+    }
+   }
+
+  }
+
+    for(int i=0; i<size;++i){
+     x[i] = xBest[i];
+     y[i] = yBest[i];
+     z[i] = zBest[i];
+    }
+
 
   char contactMap[size+1]; 
-   int numNPs = 1;
+   //int numNPs = 1;
   char proxChar[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-  if(config.m_sumNPPotentials == false){
-   numNPs = np.m_x.size ();
-  }
      bool doProximity = config.m_doProximity;
 
   for( int i = 0; i< size; ++ i){
