@@ -63,7 +63,7 @@ std::normal_distribution<double> unitNormalDist (0.0, 1.0);
 std::string
 getUAVersion ()
 {
-  static std::string uaVersionID ("1.6.3");
+  static std::string uaVersionID ("1.6.4");
   return uaVersionID;
 }
 

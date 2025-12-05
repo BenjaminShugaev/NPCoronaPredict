@@ -198,42 +198,33 @@ if(d > re){
 res = 2*HamakerAtomCylinderUnitSegmentIntegrandNE(RC, d, cylinderHalfLength);
 
 
-if(res < -50000){
-//std::cout << "large value in calculation of cylinder in case 1 at: " << d << " " << res << " "  << " " << re << " " <<  d - re <<"\n";
-}
+  if(res < -50000){
+  //std::cout << "large value in calculation of cylinder in case 1 at: " << d << " " << res << " "  << " " << re << " " <<  d - re <<"\n";
+  }
  
 }
 else{
+
+if(d > 1e-6){
 //case 2 is more complex.  we integrate up from zc = 0 to zc = sqrt(re^2 - d^2) as this is the region in which the exclusion matters. 
 double zcMaxSq =  (re*re - d*d);
 double zcMax = 0.0001;
 if(zcMaxSq > 0){ //under very rare and seemingly random cases this code can be called for d > re, but re^2 < d^2, which would throw an error.
-zcMax = sqrt(zcMaxSq);
-
-double zc = 0;
-double deltazc = zcMax/100.0;
-while(zc < zcMax-deltazc){
-//std::cout << zc << " " << zcMax - deltazc << "\n";
-double trialRes = HamakerAtomDiskUnit( RC, d, re,   zc+deltazc/2.0 )*deltazc;
- if( std::isinf(res) ){
-res = 1e10; 
-}
-
-res += trialRes;
-
-zc+=deltazc;
-
-
-
-
-}
-
-if(res < -500){
-std::cout << "large value in calculation of cylinder before analytical: " << d << " " << res << " "  << " " << re << " " <<  deltazc <<"\n";
-}
-
-
-
+ zcMax = sqrt(zcMaxSq);
+ double zc = 0;
+ double deltazc = zcMax/100.0;
+  while(zc < zcMax-deltazc){
+   //std::cout << zc << " " << zcMax - deltazc << "\n";
+   double trialRes = HamakerAtomDiskUnit( RC, d, re,   zc+deltazc/2.0 )*deltazc;
+   if( std::isinf(res) ){
+      res = 1e10; 
+    }
+    res += trialRes;
+    zc+=deltazc;
+  }
+ if(res < -500){
+  std::cout << "large value in calculation of cylinder before analytical: " << d << " " << res << " "  << " " << re << " " <<  deltazc <<"\n";
+ }
 }
 
 if(std::isinf(res)){
@@ -256,8 +247,18 @@ std::cout<< HamakerAtomCylinderUnitSegmentIntegrandNE(RC, d, 1e-8)<<"\n";
 //finally we use symmetry to evaluate the other half of the cylinder.
 res = res*2;
 } 
+else{
+//error handling for when the atom is submerged inside the cylinder
+double effectiveD = 1e-4;
+double effectiveRC = RC+d - 0.1;
+res = HamakerAtomCylinderUnit(effectiveRC, effectiveD , re, 1);
+
+}
+
+}
 if(std::isnan(res)){
 std::cout << "found nan at " << d << " " << RC << "\n";
+res = 1e10; 
 }
 if(std::isinf(res)){
 //std::cout << "found inf at " << d << " " << RC << "\n";
