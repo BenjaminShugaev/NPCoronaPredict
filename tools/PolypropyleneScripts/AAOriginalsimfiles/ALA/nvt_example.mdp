@@ -1,0 +1,76 @@
+; npt.mdp - used as input into grompp to generate eq_npt.tpr
+
+
+;	Input for NPT
+;
+;
+;define			=  -DPOSRES
+integrator		=  md 
+nsteps			=  5 
+dt			=  0.002
+;continuation	        = yes		; Restarting after NVT 
+
+;
+; Removing CM Translation and Rotation
+comm_mode		=  Linear 
+nstcomm			=  1000
+;
+
+; Output Control 
+nstlog			= 50000
+nstenergy		= 50000
+nstxout			= 50000
+nstvout			= 50000
+nstxtcout               = 50000
+nstfout			= 50000
+
+
+;
+; Neighborsearching
+cutoff-scheme   = Verlet
+ns_type             = grid              ; search neighboring grid cells
+nstlist             = 10                 ; 20 fs, largely irrelevant with Verlet scheme
+rlist = 1.2
+rlistlong                = -1
+rcoulomb            = 1.2               ; short-range electrostatic cutoff (in nm)
+rvdw                = 1.2               ; short-range van der Waals cutoff (in nm)
+rcoulomb-switch     = 1.0
+rvdw-switch         = 1.0
+DispCorr                 = no
+; VdW
+vdwtype=cut-off
+vdw_modifier=force-switch
+; Electrostatics
+coulombtype         = PME               ; Particle Mesh Ewald for long-range electrostatics
+pme_order           = 4                 ; cubic interpolation
+fourierspacing  = 0.12                  ; grid spacing for FFT
+; PBC
+pbc                     = xyz
+; Constraints
+;constraints = none
+constraints             = h-bonds
+constraint-algorithm    = lincs
+lincs_iter              = 4
+lincs-order             = 8
+
+
+
+
+; Pressure
+Pcoupl			=  no
+
+
+;
+; Temperature
+Tcoupl			= v-rescale 
+tc-grps                  = System
+tau_t			= 0.1
+ref_t			= 298.15
+
+
+;
+; Initial Velocities
+gen_vel			= yes
+gen_temp               = 298.15
+gen_seed               = -1
+

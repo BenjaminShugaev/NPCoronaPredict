@@ -1,0 +1,26 @@
+Remarks SulfonicAnion_CNS.par created by acpype (v: 2022.7.21) on Mon Jun 16 12:16:42 2025
+
+set echo=false end
+
+{ Bonds: atomType1 atomType2 kb r0 }
+BOND   oh_   ho_    563.5   0.9730
+BOND    o_   s4_    572.3   1.5040
+BOND   s4_   oh_    309.0   1.6960
+
+{ Angles: aType1 aType2 aType3 kt t0 }
+ANGLe   s4_   oh_   ho_     44.2   106.85
+ANGLe    o_   s4_    o_    127.0   114.11
+ANGLe    o_   s4_   oh_    120.7   110.10
+
+{ Proper Dihedrals: aType1 aType2 aType3 aType4 kt period phase }
+DIHEdral    o_   s4_   oh_   ho_           5.000    1     0.00
+
+{ Improper Dihedrals: aType1 aType2 aType3 aType4 kt period phase }
+
+{ Nonbonded: Type Emin sigma; (1-4): Emin/2 sigma }
+NONBonded    o_    0.146300    3.048121    0.073150    3.048121
+NONBonded   s4_    0.282400    3.532413    0.141200    3.532413
+NONBonded   oh_    0.093000    3.242871    0.046500    3.242871
+NONBonded   ho_    0.004700    0.537925    0.002350    0.537925
+
+set echo=true end

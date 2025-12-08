@@ -1,0 +1,19 @@
+; SulfonicAnion_GMX_OPLS.top created by acpype (v: 2022.7.21) on Mon Jun 16 12:16:42 2025
+
+; Include forcefield parameters
+#include "ffoplsaa.itp"
+
+; Include SulfonicAnion_GMX.itp topology
+#include "SulfonicAnion_GMX.itp"
+
+; Ligand position restraints
+#ifdef POSRES_LIG
+#include "posre_SulfonicAnion.itp"
+#endif
+
+[ system ]
+ SulfonicAnion
+
+[ molecules ]
+; Compound        nmols
+ SulfonicAnion    1     

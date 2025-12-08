@@ -1,0 +1,44 @@
+Remarks SulfonicAnion_CNS.top created by acpype (v: 2022.7.21) on Mon Jun 16 12:16:42 2025
+
+set echo=false end
+
+autogenerate angles=True dihedrals=True end
+
+{ atomType  mass }
+MASS o_      16.000
+MASS s4_     32.060
+MASS oh_     16.000
+MASS ho_      1.008
+
+RESIdue UNL
+
+GROUP
+
+{ atomName  atomType  Charge }
+ATOM O     TYPE= o_    CHARGE=  -0.5654 END
+ATOM S     TYPE= s4_   CHARGE=   0.4256 END
+ATOM O1    TYPE= o_    CHARGE=  -0.5654 END
+ATOM O2    TYPE= oh_   CHARGE=  -0.6838 END
+ATOM H     TYPE= ho_   CHARGE=   0.3890 END
+
+{ Bonds: atomName1  atomName2 }
+BOND O2    H    
+BOND O     S    
+BOND S     O1   
+BOND S     O2   
+
+{ Angles: atomName1 atomName2 atomName3}
+ANGLe S     O2    H    
+ANGLe O     S     O1   
+ANGLe O     S     O2   
+ANGLe O1    S     O2   
+
+{ Proper Dihedrals: name1 name2 name3 name4 }
+DIHEdral O     S     O2    H    
+DIHEdral O1    S     O2    H    
+
+{ Improper Dihedrals: aName1 aName2 aName3 aName4 }
+
+END {RESIdue UNL}
+
+set echo=true end

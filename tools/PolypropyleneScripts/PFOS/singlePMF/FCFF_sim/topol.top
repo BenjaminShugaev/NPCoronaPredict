@@ -1,0 +1,27 @@
+; FCFF_GMX.top created by acpype (v: 2022.7.21) on Tue May 27 10:37:09 2025
+
+#include "amber99sb.ff/forcefield.itp"
+#include "customatoms.itp"
+#include "amber99sb.ff/tip3p.itp"
+#include "amber99sb.ff/ions.itp"
+#include "PPtet_GMX.itp"
+#include "FCFF_GMX.itp"
+
+
+
+; Ligand position restraints
+#ifdef POSRES_LIG
+#include "posre_FCFF.itp"
+#endif
+
+[ system ]
+PPtet in water
+FFF in water
+
+[ molecules ]
+; Compound        nmols
+ PPtet            1
+ FFF              1
+SOL         16572
+NA               46
+CL               46

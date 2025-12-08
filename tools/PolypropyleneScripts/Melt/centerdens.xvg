@@ -1,0 +1,74 @@
+# This file was created Wed Nov 12 21:31:08 2025
+# Created by:
+#                 :-) GROMACS - gmx density, 2025.1-Homebrew (-:
+# 
+# Executable:   /opt/homebrew/bin/../Cellar/gromacs/2025.1/bin/gmx
+# Data prefix:  /opt/homebrew/bin/../Cellar/gromacs/2025.1
+# Working dir:  /Users/brianmaloney/Desktop/MastersProject/PPresults/Melt_final
+# Command line:
+#   gmx density -f waterslabcentered.xtc -s waterslabnvt.tpr -o centerdens.xvg
+# gmx density is part of G R O M A C S:
+#
+# God Rules Over Mankind, Animals, Cosmos and Such
+#
+@    title "Partial density"
+@    xaxis  label "Average coordinate (nm)"
+@    yaxis  label "Density (kg m\S-3\N)"
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "Water"
+    0.238807          979.326
+    0.716422          979.951
+     1.19404          977.959
+     1.67165           979.99
+     2.14926           979.92
+     2.62688           978.01
+     3.10449           980.28
+     3.58211          977.878
+     4.05972          979.781
+     4.53734          980.216
+     5.01495          961.647
+     5.49257          495.215
+     5.97018          21.1264
+     6.44779         0.029774
+     6.92541       0.00987515
+     7.40302        0.0127473
+     7.88064        0.0164884
+     8.35825        0.0327636
+     8.83587        0.0436822
+     9.31348        0.0228587
+      9.7911        0.0154346
+     10.2687      0.000248915
+     10.7463                0
+     11.2239                0
+     11.7016                0
+     12.1792       0.00244513
+     12.6568          0.10345
+     13.1344         0.286018
+      13.612         0.292075
+     14.0896         0.292967
+     14.5672         0.293107
+     15.0449         0.293408
+     15.5225         0.297688
+     16.0001         0.293804
+     16.4777         0.290231
+     16.9553         0.296711
+     17.4329         0.337522
+     17.9105          25.6528
+     18.3882          503.378
+     18.8658          962.475
+     19.3434           979.98
+      19.821          977.986
+     20.2986          980.234
+     20.7762          980.183
+     21.2538          978.299
+     21.7315          980.168
+     22.2091          978.404
+     22.6867          980.563
+     23.1643          980.061
+     23.6419          977.782

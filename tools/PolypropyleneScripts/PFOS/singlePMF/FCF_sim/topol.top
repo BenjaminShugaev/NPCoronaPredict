@@ -1,0 +1,28 @@
+; PPtet_GMX.top created by acpype (v: 2022.7.21) on Tue May 27 10:44:03 2025
+
+#include "amber99sb.ff/forcefield.itp"
+#include "customatoms.itp"
+#include "amber99sb.ff/tip3p.itp"
+#include "amber99sb.ff/ions.itp"
+; Include PPtet_GMX.itp topology
+#include "PPtet_GMX.itp"
+; Include FCF_GMX.itp topology
+#include "FCF_GMX.itp"
+
+; Ligand position restraints
+#ifdef POSRES
+#include "posre_PPtet.itp"
+#include "posre_FCF.itp"
+#endif
+
+[ system ]
+PPtet in water
+FCF in water
+
+[ molecules ]
+; Compound        nmols
+ PPtet            1
+ FCF		  1
+SOL         32577
+NA               90
+CL               90

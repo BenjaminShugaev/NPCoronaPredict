@@ -1,0 +1,23 @@
+Remarks FCF_CNS.par created by acpype (v: 2022.7.21) on Tue May 27 10:17:32 2025
+
+set echo=false end
+
+{ Bonds: atomType1 atomType2 kb r0 }
+BOND   c3_   h2_    331.7   1.0961
+BOND    f_   c3_    356.9   1.3497
+
+{ Angles: aType1 aType2 aType3 kt t0 }
+ANGLe    f_   c3_   h2_     51.1   108.79
+ANGLe   h2_   c3_   h2_     39.0   110.20
+ANGLe    f_   c3_    f_     70.9   107.36
+
+{ Proper Dihedrals: aType1 aType2 aType3 aType4 kt period phase }
+
+{ Improper Dihedrals: aType1 aType2 aType3 aType4 kt period phase }
+
+{ Nonbonded: Type Emin sigma; (1-4): Emin/2 sigma }
+NONBonded    f_    0.061000    3.118146    0.030500    3.118146
+NONBonded   c3_    0.109400    3.399670    0.054700    3.399670
+NONBonded   h2_    0.015700    2.293173    0.007850    2.293173
+
+set echo=true end

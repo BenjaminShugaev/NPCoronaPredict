@@ -1,0 +1,19 @@
+; PPtet_GMX_OPLS.top created by acpype (v: 2022.7.21) on Tue May 27 10:44:03 2025
+
+; Include forcefield parameters
+#include "ffoplsaa.itp"
+
+; Include PPtet_GMX.itp topology
+#include "PPtet_GMX.itp"
+
+; Ligand position restraints
+#ifdef POSRES_LIG
+#include "posre_PPtet.itp"
+#endif
+
+[ system ]
+ PPtet
+
+[ molecules ]
+; Compound        nmols
+ PPtet            1

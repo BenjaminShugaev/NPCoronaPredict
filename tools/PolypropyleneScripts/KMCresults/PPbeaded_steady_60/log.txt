@@ -1,0 +1,4 @@
+NPCoronaPredict.py -r 0.3 -z 0 -N nps/aprox10nmPP.np -p PPbeaded_steady_60 -o Conc2.csv --steady -t 60
+python3 RunUA.py -r 0 -z 0.0 -p CoronaPredictionProjects/PPbeaded_steady_60/proteins -o CoronaPredictionProjects/PPbeaded_steady_60/results -m anatase101 --operation-type=pdb-folder -b beadsets/StandardAABeadSet.csv -c CoronaPredictionProjects/PPbeaded_steady_60 -n PPbeaded_steady_60 -H 1 -j 0 -B 0 -N nps/aprox10nmPP.np
+python3 BuildCoronaParams.py -r 0 -z 0 -f CoronaPredictionProjects/PPbeaded_steady_60/results/aprox10nmPP -p CoronaPredictionProjects/PPbeaded_steady_60/serum.csv -c CoronaPredictionProjects/PPbeaded_steady_60/proteins -b beadsets/StandardAABeadSet.csv -o CoronaPredictionProjects/PPbeaded_steady_60/coronakmcinput.csv
+python3 CoronaKMC.py -r 0 -f 0 -p CoronaPredictionProjects/PPbeaded_steady_60/coronakmcinput.csv -t 0.016666666666666666 --timedelta 0.1 -P PPbeaded_steady_60 --demo 0 -b 1 -D 0 -A 0 -n 10 --steady
