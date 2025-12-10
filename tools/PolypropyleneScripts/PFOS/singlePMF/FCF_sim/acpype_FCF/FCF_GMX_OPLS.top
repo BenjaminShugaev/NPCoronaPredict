@@ -1,0 +1,19 @@
+; FCF_GMX_OPLS.top created by acpype (v: 2022.7.21) on Tue May 27 10:17:32 2025
+
+; Include forcefield parameters
+#include "ffoplsaa.itp"
+
+; Include FCF_GMX.itp topology
+#include "FCF_GMX.itp"
+
+; Ligand position restraints
+#ifdef POSRES_LIG
+#include "posre_FCF.itp"
+#endif
+
+[ system ]
+ FCF
+
+[ molecules ]
+; Compound        nmols
+ FCF              1

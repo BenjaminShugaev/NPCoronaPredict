@@ -1,0 +1,111 @@
+===========================================================================
+| ACPYPE: AnteChamber PYthon Parser interfacE v. 2022.7.21 (c) 2025 AWSdS |
+===========================================================================
+DEBUG: CLI: -i O=[S-](=O)O -n -1 -b SulfonicAnion
+DEBUG: Python Version 3.10.12 (main, Feb 4 2025, 14:57:36) [GCC 11.4.0]
+DEBUG: Max execution time tolerance is 3h
+DEBUG: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/antechamber -dr no -i SulfonicAnion.mol2 -fi mol2 -o tmp -fo ac -pf y
+DEBUG: 
+Welcome to antechamber 21.0: molecular input file processor.
+
+The atom type is set to gaff; the options available to the -at flag are
+ gaff, gaff2, amber, bcc, and sybyl.
+Warning: Ignoring Mol2 record type (@<TRIPOS>UNITY_ATOM_ATTR).
+Info: Bond types are assigned for valence state (1) with penalty (1).
+
+DEBUG: setResNameCheckCoords done
+DEBUG: Net charge drift '0.000000'
+==> ... charge set to -1
+==> Executing Antechamber...
+DEBUG: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/antechamber -dr no -i SulfonicAnion.mol2 -fi mol2 -o SulfonicAnion_bcc_gaff2.mol2 -fo mol2 -c bcc -nc -1 -m 1 -s 2 -df 2 -at gaff2 -pf n 
+DEBUG: No file left to be removed
+==> * Antechamber OK *
+DEBUG: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/parmchk2 -i SulfonicAnion_bcc_gaff2.mol2 -f mol2 -o SulfonicAnion_AC.frcmod -s 2
+==> * Parmchk OK *
+DEBUG: No crd or prm files left to be removed
+==> Executing Tleap...
+DEBUG: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/tleap -f tleap.in
+DEBUG: ++++++++++start_quote+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DEBUG: Checking 'UNL'....
+
+/home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/teLeap: Warning!
+The unperturbed charge of the unit (-1.001000) is not zero.
+Checking parameters for unit 'UNL'.
+Checking for bond parameters.
+Checking for angle parameters.
+check: Warnings: 1
+Unit is OK.
+DEBUG: ++++++++++end_quote+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+==> * Tleap OK *
+==> Removing temporary files...
+DEBUG: prmtop and inpcrd files loaded
+DEBUG: basename defined = 'SulfonicAnion'
+DEBUG: getCoords done
+DEBUG: getABCOEFs done
+DEBUG: charge to be balanced: total -1.0009999956
+DEBUG: balanceCharges done
+DEBUG: Balanced TotalCharge -1.0000000000
+DEBUG: PBC = None
+DEBUG: getAtoms done
+DEBUG: getBonds done
+DEBUG: getAngles done
+DEBUG: getDihedrals done
+==> Using OpenBabel v.3.1.1
+
+==> Writing NEW PDB file
+
+==> Writing CNS/XPLOR files
+
+DEBUG: chiralGroups 0
+==> Writing GROMACS files
+
+==> Disambiguating lower and uppercase atomtypes in GMX top file, even if identical.
+
+DEBUG: writing GRO file
+DEBUG: Box size estimated
+DEBUG: writing POSRE file
+DEBUG: atomTypes 4
+DEBUG: GMX atomtypes done
+DEBUG: atoms 5
+DEBUG: GMX atoms done
+DEBUG: bonds 4
+DEBUG: GMX bonds done
+DEBUG: atomPairs 2
+DEBUG: GMX pairs done
+DEBUG: angles 4
+DEBUG: GMX angles done
+DEBUG: setProperDihedralsCoef done
+DEBUG: properDihedralsCoefRB 2
+DEBUG: properDihedralsAlphaGamma 0
+DEBUG: properDihedralsGmx45 2
+==> Writing GMX dihedrals for GMX 4.5 and higher.
+
+DEBUG: GMX special proper dihedrals done
+DEBUG: improperDihedrals 0
+DEBUG: GMX improper dihedrals done
+==> Writing CHARMM files
+
+DEBUG: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/antechamber -dr no -i SulfonicAnion_bcc_gaff2.mol2 -fi mol2 -o SulfonicAnion_CHARMM -fo charmm -s 2 -at gaff2 -pf n -rn UNL
+DEBUG: ++++++++++start_quote+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DEBUG: 
+Welcome to antechamber 21.0: molecular input file processor.
+
+The atom type is set to gaff2; the options available to the -at flag are
+ gaff, gaff2, amber, bcc, and sybyl.
+Info: Ignoring Mol2 record type (@<TRIPOS>SUBSTRUCTURE).
+Info: Finished reading file (SulfonicAnion_bcc_gaff2.mol2); atoms read (5), bonds read (4).
+Info: Determining atomic numbers from atomic symbols which are case sensitive.
+Running: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/bondtype -j full -i ANTECHAMBER_BOND_TYPE.AC0 -o ANTECHAMBER_BOND_TYPE.AC -f ac
+Info: Bond types are assigned for valence state (1) with penalty (1).
+
+Running: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/atomtype -i ANTECHAMBER_AC.AC0 -o ANTECHAMBER_AC.AC -p gaff2
+
+Running: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/atomtype -i ANTECHAMBER_PREP.AC0 -o ANTECHAMBER_PREP.AC -p gaff2
+
+Running: /home/ianrouse/.local/lib/python3.10/site-packages/acpype/amber21-11_linux/bin/charmmgen -i ANTECHAMBER_PREP.AC -f ac -o SulfonicAnion_CHARMM -r UNL
+
+DEBUG: ++++++++++end_quote+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+==> Writing pickle file SulfonicAnion.pkl
+==> Removing temporary files...
+Total time of execution: 21s
+DEBUG: No tmp folder left to be removed

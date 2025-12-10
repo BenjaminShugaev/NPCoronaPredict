@@ -1,0 +1,38 @@
+; SulfonicAnion_GMX.itp created by acpype (v: 2022.7.21) on Mon Jun 16 12:16:42 2025
+
+[ moleculetype ]
+;name            nrexcl
+ OSH              3
+
+[ atoms ]
+;   nr  type  resi  res  atom  cgnr     charge      mass       ; qtot   bond_type
+     1    o     1   UNL     O    1    -0.565400     16.00000 ; qtot -0.565
+     2   s4     1   UNL     S    2     0.425600     32.06000 ; qtot -0.140
+     3    o     1   UNL    O1    3    -0.565400     16.00000 ; qtot -0.705
+     4   oh     1   UNL    O2    4    -0.683800     16.00000 ; qtot -1.389
+     5   ho     1   UNL     H    5     0.389000      1.00800 ; qtot -1.000
+
+[ bonds ]
+;   ai     aj funct   r             k
+     1      2   1    1.5040e-01    4.7890e+05 ;      O - S     
+     2      3   1    1.5040e-01    4.7890e+05 ;      S - O1    
+     2      4   1    1.6960e-01    2.5857e+05 ;      S - O2    
+     4      5   1    9.7300e-02    4.7154e+05 ;     O2 - H     
+
+[ pairs ]
+;   ai     aj    funct
+     1      5      1 ;      O - H     
+     3      5      1 ;     O1 - H     
+
+[ angles ]
+;   ai     aj     ak    funct   theta         cth
+     1      2      3      1    1.1411e+02    1.0627e+03 ;      O - S      - O1    
+     1      2      4      1    1.1010e+02    1.0100e+03 ;      O - S      - O2    
+     2      4      5      1    1.0685e+02    3.6987e+02 ;      S - O2     - H     
+     3      2      4      1    1.1010e+02    1.0100e+03 ;     O1 - S      - O2    
+
+[ dihedrals ] ; propers
+; for gromacs 4.5 or higher, using funct 9
+;    i      j      k      l   func   phase     kd      pn
+     1      2      4      5      9     0.00  20.92000   1 ;      O-     S-    O2-     H
+     3      2      4      5      9     0.00  20.92000   1 ;     O1-     S-    O2-     H

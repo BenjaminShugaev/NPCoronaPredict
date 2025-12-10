@@ -1,0 +1,35 @@
+; FCFF_GMX_OPLS.itp created by acpype (v: 2022.7.21) on Tue May 27 10:37:09 2025
+
+; For OPLS atomtypes manual fine tuning
+; AC_at:OPLS_at:OPLScode: Possible_Alternatives (see ffoplsaa.atp and ffoplsaanb.itp)
+; f:x:opls_x: []
+; c3:CT:opls_135: ['136', '137', '149', '157', '158', '206', '209', '210', '223B', '224B', '245', '246', '274', '283', '284', '285', '292', '292B', '293B', '296', '307', '308', '505']
+; h3:x:opls_x: []
+
+[ moleculetype ]
+;name            nrexcl
+ FCFF             3
+
+[ atoms ]
+;   nr  type  resi  res  atom  cgnr     charge      mass       ; qtot   bond_type
+     1 opls_x     1   UNL     F    1    -0.243300      0.00000 ; qtot -0.243  x   
+     2 opls_135     1   UNL     C    2     0.623200     12.01100 ; qtot  0.380  CT  
+     3 opls_x     1   UNL    F1    3    -0.243300      0.00000 ; qtot  0.137  x   
+     4 opls_x     1   UNL    F2    4    -0.243300      0.00000 ; qtot -0.107  x   
+     5 opls_x     1   UNL     H    5     0.106700      0.00000 ; qtot  0.000  x   
+
+[ bonds ]
+;   ai     aj funct   r             k
+     1      2   1 ;    1.3497e-01    2.9865e+05 ;      F - C           x - CT    
+     2      3   1 ;    1.3497e-01    2.9865e+05 ;      C - F1         CT - x     
+     2      4   1 ;    1.3497e-01    2.9865e+05 ;      C - F2         CT - x     
+     2      5   1 ;    1.0949e-01    2.7891e+05 ;      C - H          CT - x     
+
+[ angles ]
+;   ai     aj     ak    funct   theta         cth
+     1      2      3      1 ;    1.0736e+02    5.9329e+02 ;      F - C    - F1        x -   CT - x   
+     1      2      4      1 ;    1.0736e+02    5.9329e+02 ;      F - C    - F2        x -   CT - x   
+     1      2      5      1 ;    1.1008e+02    4.2593e+02 ;      F - C    - H         x -   CT - x   
+     3      2      4      1 ;    1.0736e+02    5.9329e+02 ;     F1 - C    - F2        x -   CT - x   
+     3      2      5      1 ;    1.1008e+02    4.2593e+02 ;     F1 - C    - H         x -   CT - x   
+     4      2      5      1 ;    1.1008e+02    4.2593e+02 ;     F2 - C    - H         x -   CT - x

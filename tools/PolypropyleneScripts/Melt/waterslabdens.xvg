@@ -1,0 +1,74 @@
+# This file was created Wed Nov 12 12:29:49 2025
+# Created by:
+#                 :-) GROMACS - gmx density, 2025.1-Homebrew (-:
+# 
+# Executable:   /opt/homebrew/bin/../Cellar/gromacs/2025.1/bin/gmx
+# Data prefix:  /opt/homebrew/bin/../Cellar/gromacs/2025.1
+# Working dir:  /Users/brianmaloney/Desktop/MastersProject/PPresults/Melt_final
+# Command line:
+#   gmx density -f waterslabnvt.xtc -n waterslabindex.ndx -s waterslabnvt.tpr -o waterslabdens.xvg
+# gmx density is part of G R O M A C S:
+#
+# Guyana Rwanda Oman Macau Angola Cameroon Senegal
+#
+@    title "Partial density"
+@    xaxis  label "Average coordinate (nm)"
+@    yaxis  label "Density (kg m\S-3\N)"
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "Water"
+    0.238807          967.269
+    0.716422          512.718
+     1.19404          18.4136
+     1.67165        0.0198995
+     2.14926         0.009899
+     2.62688        0.0145701
+     3.10449        0.0145471
+     3.58211         0.031686
+     4.05972        0.0444401
+     4.53734        0.0245638
+     5.01495        0.0146119
+     5.49257      0.000118495
+     5.97018                0
+     6.44779                0
+     6.92541                0
+     7.40302                0
+     7.88064                0
+     8.35825                0
+     8.83587                0
+     9.31348                0
+      9.7911                0
+     10.2687                0
+     10.7463                0
+     11.2239                0
+     11.7016                0
+     12.1792      0.000965084
+     12.6568        0.0141411
+     13.1344          18.5409
+      13.612          490.581
+     14.0896          963.451
+     14.5672          979.949
+     15.0449          978.073
+     15.5225          980.058
+     16.0001          978.126
+     16.4777          980.421
+     16.9553          980.252
+     17.4329          978.429
+     17.9105          980.494
+     18.3882          978.106
+     18.8658          980.214
+     19.3434          980.287
+      19.821          978.102
+     20.2986          980.512
+     20.7762          980.183
+     21.2538          978.305
+     21.7315          980.279
+     22.2091          978.279
+     22.6867          980.276
+     23.1643           980.28
+     23.6419          977.941

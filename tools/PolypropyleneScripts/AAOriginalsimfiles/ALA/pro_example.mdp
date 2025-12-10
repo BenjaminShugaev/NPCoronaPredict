@@ -1,0 +1,110 @@
+; NPT production
+; RUN CONTROL PARAMETERS
+integrator               = md
+; Start time and timestep in ps, total 100 ns
+dt                       = 0.002
+nsteps                   = 5
+
+; mode for center of mass motion removal
+comm-mode                = Linear
+; number of steps for center of mass motion removal
+nstcomm                  = 1
+; group(s) for center of mass motion removal
+comm-grps                = System
+
+; OUTPUT CONTROL OPTIONS
+; Output frequency for coords (x), velocities (v) and forces (f)
+nstxout                  = 0
+nstvout                  = 0
+nstfout                  = 0
+; Output frequency for energies to log file and energy file
+nstlog                   = 10000
+nstcalcenergy            = 100
+nstenergy                = 2000
+; Output frequency and precision for .xtc file
+nstxout-compressed       = 2000
+compressed-x-precision   = 1000
+; This selects the subset of atoms for the compressed
+; trajectory file. You can select multiple groups. By
+; default, all atoms will be written.
+compressed-x-grps        = 
+; Selection of energy groups
+energygrps               = 
+
+; NEIGHBORSEARCHING PARAMETERS
+; cut-off scheme (Verlet: particle based cut-offs, group: using charge groups)
+cutoff-scheme            = Verlet
+; nblist update frequency
+nstlist                  = 10
+; ns algorithm (simple or grid)
+ns-type                  = Grid
+; Periodic boundary conditions: xyz, no, xy
+pbc                      = xyz
+periodic-molecules       = yes
+; Allowed energy error due to the Verlet buffer in kJ/mol/ps per atom,
+; a value of -1 means: use rlist
+verlet-buffer-tolerance  = 0.005
+; nblist cut-off        
+rlist                    = 1.2
+; long-range cut-off for switched potentials
+rlistlong                = -1
+nstcalclr                = -1
+
+; OPTIONS FOR ELECTROSTATICS AND VDW
+; Method for doing electrostatics
+coulombtype              = pme
+coulomb-modifier         = Potential-shift-Verlet
+rcoulomb-switch          = 1.0
+rcoulomb                 = 1.2
+; Relative dielectric constant for the medium and the reaction field
+epsilon-r                = 1
+epsilon-rf               = 0
+; Method for doing Van der Waals
+vdw-type                 = cutoff
+vdw-modifier             = force-switch
+; cut-off lengths       
+rvdw-switch              = 1.0
+rvdw                     = 1.2
+; Apply long range dispersion corrections for Energy and Pressure
+DispCorr                 = no ;EnerPres
+; EWALD/PME/PPPM parameters
+pme-order                = 4
+;ewald-rtol               = 1e-05
+;ewald-rtol-lj            = 0.001
+;lj-pme-comb-rule         = Geometric
+;ewald-geometry           = 3d
+
+; OPTIONS FOR WEAK COUPLING ALGORITHMS
+
+; Pressure coupling is on
+
+; Pressure
+Pcoupl                  =  c-rescale
+Pcoupltype              =  isotropic
+tau_p                   =  1.0
+compressibility         =  4.5e-5
+ref_p = 1.0
+refcoord-scaling        =  all
+
+;
+; Constraints
+constraints             = h-bonds
+constraint-algorithm    = lincs
+lincs_iter              = 4
+
+
+;
+; Temperature
+Tcoupl                  = v-rescale
+tc-grps                  = System
+tau_t                   = 0.1
+ref_t                   = 298.15
+
+
+
+
+; GENERATE VELOCITIES FOR STARTUP RUN
+gen-vel                  = yes
+gen-temp                 = 298.15
+gen-seed                 = -1
+

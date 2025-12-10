@@ -1,0 +1,6 @@
+Unnamed: 0,Proteins,Name,PDBID,UniProt,MW,ChargeProt,D,ConcProt,mw,concMolar,rProt,rNP
+0,HSA,Human Serum Albumine,1AO6,P02768,131,-15.0,0.64,40.0,69367.0,0.000577,3.35,5.0
+1,C3,Complement component C3,2A73,P01024,183,-24.0,0.4,1.2,187148.0,6e-06,5.18,5.0
+2,FG,Fibrinogen,3GHG,P02671,228,-14.0,0.23,3.0,94973.0,3.2e-05,9.61,5.0
+3,APO-AI,Apo-Lipoprotein,3K2S,P02647,56,-8.0,0.24,1.58,30778.0,5.1e-05,4.99,5.0
+4,IGH,Immunoglobulin,1HZH,P01857,150,22.0,0.39,12.0,43912.0,0.000273,5.74,5.0

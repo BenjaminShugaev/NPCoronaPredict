@@ -1,0 +1,4 @@
+NPCoronaPredict.py -r 10 -z 0 -m pp-pmfp -p PPpmfp_steady_500 -o Conc2.csv --steady -t 500
+python3 RunUA.py -r 10 -z 0.0 -p CoronaPredictionProjects/PPpmfp_steady_500/proteins -o CoronaPredictionProjects/PPpmfp_steady_500/results -m pp-pmfp --operation-type=pdb-folder -b pmfp-beadsetdef/PMFP-BeadSet.csv -c CoronaPredictionProjects/PPpmfp_steady_500 -n PPpmfp_steady_500 -H 1 -j 0 -B 0
+python3 BuildCoronaParams.py -r 10 -z 0 -f CoronaPredictionProjects/PPpmfp_steady_500/results/np1R_10_ZP_0 -p CoronaPredictionProjects/PPpmfp_steady_500/serum.csv -c CoronaPredictionProjects/PPpmfp_steady_500/proteins -b pmfp-beadsetdef/PMFP-BeadSet.csv -o CoronaPredictionProjects/PPpmfp_steady_500/coronakmcinput.csv
+python3 CoronaKMC.py -r 10 -f 0 -p CoronaPredictionProjects/PPpmfp_steady_500/coronakmcinput.csv -t 0.1388888888888889 --timedelta 0.1 -P PPpmfp_steady_500 --demo 0 -b 1 -D 0 -A 0 -n 10 --steady

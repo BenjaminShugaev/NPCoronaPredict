@@ -1,0 +1,8 @@
+; posre_SulfonicAnion.itp created by acpype (v: 2022.7.21) on Mon Jun 16 12:16:42 2025
+
+[ position_restraints ]
+; atom  type      fx      fy      fz
+     1     1  1000  1000  1000
+     2     1  1000  1000  1000
+     3     1  1000  1000  1000
+     4     1  1000  1000  1000

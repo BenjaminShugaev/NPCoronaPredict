@@ -1,0 +1,35 @@
+; FCF_GMX_OPLS.itp created by acpype (v: 2022.7.21) on Tue May 27 10:17:32 2025
+
+; For OPLS atomtypes manual fine tuning
+; AC_at:OPLS_at:OPLScode: Possible_Alternatives (see ffoplsaa.atp and ffoplsaanb.itp)
+; f:x:opls_x: []
+; c3:CT:opls_135: ['136', '137', '149', '157', '158', '206', '209', '210', '223B', '224B', '245', '246', '274', '283', '284', '285', '292', '292B', '293B', '296', '307', '308', '505']
+; h2:x:opls_x: []
+
+[ moleculetype ]
+;name            nrexcl
+ FCF              3
+
+[ atoms ]
+;   nr  type  resi  res  atom  cgnr     charge      mass       ; qtot   bond_type
+     1 opls_x     1   UNL     F    1    -0.250300      0.00000 ; qtot -0.250  x   
+     2 opls_135     1   UNL     C    2     0.393200     12.01100 ; qtot  0.143  CT  
+     3 opls_x     1   UNL    F1    3    -0.250300      0.00000 ; qtot -0.107  x   
+     4 opls_x     1   UNL     H    4     0.053700      0.00000 ; qtot -0.054  x   
+     5 opls_x     1   UNL    H1    5     0.053700      0.00000 ; qtot  0.000  x   
+
+[ bonds ]
+;   ai     aj funct   r             k
+     1      2   1 ;    1.3497e-01    2.9865e+05 ;      F - C           x - CT    
+     2      3   1 ;    1.3497e-01    2.9865e+05 ;      C - F1         CT - x     
+     2      4   1 ;    1.0961e-01    2.7757e+05 ;      C - H          CT - x     
+     2      5   1 ;    1.0961e-01    2.7757e+05 ;      C - H1         CT - x     
+
+[ angles ]
+;   ai     aj     ak    funct   theta         cth
+     1      2      3      1 ;    1.0736e+02    5.9329e+02 ;      F - C    - F1        x -   CT - x   
+     1      2      4      1 ;    1.0879e+02    4.2760e+02 ;      F - C    - H         x -   CT - x   
+     1      2      5      1 ;    1.0879e+02    4.2760e+02 ;      F - C    - H1        x -   CT - x   
+     3      2      4      1 ;    1.0879e+02    4.2760e+02 ;     F1 - C    - H         x -   CT - x   
+     3      2      5      1 ;    1.0879e+02    4.2760e+02 ;     F1 - C    - H1        x -   CT - x   
+     4      2      5      1 ;    1.1020e+02    3.2635e+02 ;      H - C    - H1        x -   CT - x

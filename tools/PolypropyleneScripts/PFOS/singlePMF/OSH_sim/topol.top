@@ -1,0 +1,22 @@
+; OSH.mol2_GMX.top created by acpype (v: 2022.7.21) on Sun Jun 15 19:40:51 2025
+
+#include "amber99sb.ff/forcefield.itp"
+#include "customatoms.itp"
+#include "amber99sb.ff/tip3p.itp"
+#include "amber99sb.ff/ions.itp"
+; Include PPtet_GMX.itp topology
+#include "PPtet_GMX.itp"
+; Include OSH_GMX.itp topology
+#include "SulfonicAnion_GMX.itp"
+
+
+[ system ]
+PPtet in water
+OSH in water
+
+[ molecules ]
+; Compound        nmols
+ PPtet            1
+ OSH        	  1
+SOL         7410
+NA               1

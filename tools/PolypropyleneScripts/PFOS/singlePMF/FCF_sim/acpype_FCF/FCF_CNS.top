@@ -1,0 +1,43 @@
+Remarks FCF_CNS.top created by acpype (v: 2022.7.21) on Tue May 27 10:17:32 2025
+
+set echo=false end
+
+autogenerate angles=True dihedrals=True end
+
+{ atomType  mass }
+MASS f_      19.000
+MASS c3_     12.010
+MASS h2_      1.008
+
+RESIdue UNL
+
+GROUP
+
+{ atomName  atomType  Charge }
+ATOM F     TYPE= f_    CHARGE=  -0.2503 END
+ATOM C     TYPE= c3_   CHARGE=   0.3932 END
+ATOM F1    TYPE= f_    CHARGE=  -0.2503 END
+ATOM H     TYPE= h2_   CHARGE=   0.0537 END
+ATOM H1    TYPE= h2_   CHARGE=   0.0537 END
+
+{ Bonds: atomName1  atomName2 }
+BOND C     H    
+BOND C     H1   
+BOND F     C    
+BOND C     F1   
+
+{ Angles: atomName1 atomName2 atomName3}
+ANGLe F     C     H    
+ANGLe F     C     H1   
+ANGLe F1    C     H    
+ANGLe F1    C     H1   
+ANGLe H     C     H1   
+ANGLe F     C     F1   
+
+{ Proper Dihedrals: name1 name2 name3 name4 }
+
+{ Improper Dihedrals: aName1 aName2 aName3 aName4 }
+
+END {RESIdue UNL}
+
+set echo=true end

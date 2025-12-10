@@ -1,0 +1,21 @@
+* Force Field Parameter File.
+* 
+
+BOND
+c3 f   356.90   1.350
+c3 h2  331.70   1.096
+
+ANGLE
+f  c3 f    70.900     107.360
+f  c3 h2   51.100     108.790
+h2 c3 h2   39.000     110.200
+
+DIHEDRAL
+
+NONBONDED  NBXMOD 5  GROUP SWITCH CDIEL -
+CUTNB 14.0  CTOFNB 12.0  CTONNB 10.0  EPS 1.0  E14FAC 0.83333333  WMIN 1.4
+!                Emin     Rmin/2              Emin/2     Rmin  (for 1-4's)
+!             (kcal/mol)    (A)
+ f      0.00   -0.0610    1.7500      0.00   -0.0305    1.7500
+c3      0.00   -0.1094    1.9080      0.00   -0.0547    1.9080
+h2      0.00   -0.0157    1.2870      0.00   -0.0078    1.2870

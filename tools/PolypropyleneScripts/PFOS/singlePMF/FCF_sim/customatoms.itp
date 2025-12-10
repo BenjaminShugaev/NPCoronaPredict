@@ -1,0 +1,8 @@
+; FCF_GMX.itp created by acpype (v: 2022.7.21) on Tue May 27 10:17:32 2025
+
+[ atomtypes ]
+;name   bond_type     mass     charge   ptype   sigma         epsilon       Amb
+ f        f           0.00000  0.00000   A     3.11815e-01   2.55224e-01 ; 1.75  0.0610
+ c3       c3          0.00000  0.00000   A     3.39967e-01   4.57730e-01 ; 1.91  0.1094
+ h2       h2          0.00000  0.00000   A     2.29317e-01   6.56888e-02 ; 1.29  0.0157
+ hc       hc          0.00000  0.00000   A     2.64953e-01   6.56888e-02 ; 1.49  0.0157
