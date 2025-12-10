@@ -170,6 +170,8 @@ WriteMapFile (const Config &config , const double *adsorption_energy, const doub
   handle << "#Results generated at: " << timestamp << " using UA version: " << getUAVersion () << "\n";
   handle << "#" << npName << " - " << name << "\n";
   handle << "#RADIUS: " << radius << "\n";
+  int numRelaxSteps = config.m_relaxSteps;
+  handle << "#RELAXSTEPS: " << numRelaxSteps << "\n";
   //handle <<"#CONTACTS: " << contactMapString << "\n"; 
   handle << "#phi-LeftHandEdge theta-LeftHandEdge EAds/kbT=300 SDEV(Eads)/kbT=300 min_surf-surf-dist/nm mfpt*DiffusionCoeff/nm^2 EAds/kJ/mol min_ProtSurf_NPCentre-dist/nm omega NumContacts min_COM_COM-dist/nm Area[nm^2]\n";
   for (int i = 0; i < iterations; ++i)
